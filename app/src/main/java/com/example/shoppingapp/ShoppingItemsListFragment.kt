@@ -10,16 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adapter.ShoppingItemsAdapter
+import com.example.data.CartItems
 import com.example.data.Items
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ShoppingItemsListFragment : Fragment(), ShoppingItemsAdapter.onAddToCarClick {
+class ShoppingItemsListFragment() : Fragment(), ShoppingItemsAdapter.onAddToCarClick {
 
-
-
-    lateinit var items : ArrayList<Items>
+    lateinit var cartItems : ArrayList<CartItems>
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -43,7 +42,7 @@ class ShoppingItemsListFragment : Fragment(), ShoppingItemsAdapter.onAddToCarCli
         val items = ArrayList<Items>()
 
         //adding some dummy data to the list
-        items.add(Items("Nescafe", "288.00",true,"Get an awesome coffee mug!!!"))
+        items.add(Items("Nescafe", "288",true,"Get an awesome coffee mug!!!"))
         items.add(Items("Red LAbel", "249", false, ""))
         items.add(Items("Pure Almonds", "480", false, ""))
         items.add(Items("Cashew", "520", true, "Get a pista worth of Rs.70"))
@@ -52,13 +51,15 @@ class ShoppingItemsListFragment : Fragment(), ShoppingItemsAdapter.onAddToCarCli
 
 
         //creating our adapter
-        val adapter = ShoppingItemsAdapter(items, null)
+        val adapter = ShoppingItemsAdapter(items,this)
 
         //now adding the adapter to recyclerview
         recyclerView.adapter = adapter
 
         view.findViewById<ImageView>(R.id.cartImage).setOnClickListener {
-            val intent = Intent(context, ShoppingCartListActivity::class.java)
+            val intent = Intent(activity, ShoppingCartListActivity::class.java).apply {
+                putParcelableArrayListExtra("QuestionListExtra", cartItems)
+            }
             startActivity(intent)
 
         }
@@ -66,10 +67,11 @@ class ShoppingItemsListFragment : Fragment(), ShoppingItemsAdapter.onAddToCarCli
     }
 
     interface passItemsAddedToCartInterface {
-        fun passItem(ietm: ArrayList<Items>)
+        fun passItem(item: ArrayList<Items>)
     }
 
-    override fun passData(data: ArrayList<Items>) {
-        items = data
+
+    override fun passData(data: ArrayList<CartItems>) {
+        cartItems = data
     }
 }

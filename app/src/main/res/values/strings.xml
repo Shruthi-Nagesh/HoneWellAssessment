@@ -13,4 +13,7 @@
     <string name="submit_text">Submit</string>
     <string name="addtocard">Add to Cart</string>
     <string name="total">Total</string>
+    <string name="shopping_items">Shopping Items</string>
+    <string name="cart_items">Your Cart Items</string>
+    <string name="no_product_in_cart_text">Sorry you have no product added to cart</string>
 </resources>

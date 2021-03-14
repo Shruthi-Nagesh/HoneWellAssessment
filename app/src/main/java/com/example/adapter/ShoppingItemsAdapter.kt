@@ -9,13 +9,19 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.example.data.CartItems
 import com.example.data.Items
 import com.example.shoppingapp.R
 
-class ShoppingItemsAdapter(val itemList : ArrayList<Items>, private val onAddToCartListerner:onAddToCarClick?) : RecyclerView.Adapter<ShoppingItemsAdapter.ShoppingItemsViewHolder>(){
+class ShoppingItemsAdapter(val itemList : ArrayList<Items>, private val onAddToCartListerner:onAddToCarClick) : RecyclerView.Adapter<ShoppingItemsAdapter.ShoppingItemsViewHolder>(){
 
+    lateinit var mOnAddToCartListerner : onAddToCarClick
+
+    val items = ArrayList<CartItems>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingItemsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.shopping_itemslist_recycleview_row,parent,false)
+        mOnAddToCartListerner = onAddToCartListerner
+
         return ShoppingItemsViewHolder(view)
     }
 
@@ -24,11 +30,8 @@ class ShoppingItemsAdapter(val itemList : ArrayList<Items>, private val onAddToC
     }
 
     interface onAddToCarClick {
-        fun passData(data: ArrayList<Items>)
+        fun passData(data: ArrayList<CartItems>)
     }
-
-
-
 
     class ShoppingItemsViewHolder(itemsView: View): RecyclerView.ViewHolder(itemsView) {
 
@@ -60,7 +63,8 @@ class ShoppingItemsAdapter(val itemList : ArrayList<Items>, private val onAddToC
 //                val items = ArrayList<Items>()
 //                //adding some dummy data to the list
 //                items.add(Items(productName.text.toString(), productPrice.text.toString(),item.isOfferAvailable,""))
-//                onAddToCartListerner.passData(items)
+//
+//
 //            })
 
 
@@ -104,20 +108,15 @@ class ShoppingItemsAdapter(val itemList : ArrayList<Items>, private val onAddToC
     }
     }
         override fun onBindViewHolder(holder: ShoppingItemsViewHolder, position: Int) {
-           // onAddToCartListerner =  holder as onAddToCarClick;
 
             holder.bindItems(itemList[position])
-            val productName= holder.itemView.findViewById<TextView>(R.id.product_name).text.toString()
-            val productPrice= holder.itemView.findViewById<TextView>(R.id.product_price).text.toString()
-
 
             holder.itemView.findViewById<TextView>(R.id.addtocard).setOnClickListener(View.OnClickListener {
-                val items = ArrayList<Items>()
                 //adding some dummy data to the list
-                items.add(Items(productName, productPrice,false,""))
-                onAddToCartListerner?.passData(items)
-
+                holder.itemView.findViewById<TextView>(R.id.addtocard).text = " Added to Cart"
+                items.add(CartItems(itemList[position].productName, itemList[position].priceTag,itemList[position].isOfferAvailable,itemList[position].offer))
             })
+            mOnAddToCartListerner.passData(items)
     }
 
 

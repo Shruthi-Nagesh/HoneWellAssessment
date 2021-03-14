@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/tool_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.ShoppingApp.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.ShoppingApp.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/no_product_added_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@+id/tool_layout"
+        android:textSize="@dimen/product_text_size"
+        android:text="@string/no_product_in_cart_text"/>
+    <LinearLayout
+        android:id="@+id/cart_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/tool_layout"
+        android:visibility="gone"
+        android:weightSum="10">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_shopping_cartlist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="9"
         android:layout_margin="@dimen/recycleview_margin"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/separator_color"
-        android:layout_marginTop="@dimen/button_padding"/>
 
     <LinearLayout
         android:id="@+id/total_cost_details_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:weightSum="2"
         android:layout_marginTop="@dimen/recycleview_margin"
         android:layout_margin="@dimen/recycleview_margin"
+        android:layout_below="@+id/rv_shopping_cartlist"
         android:orientation="horizontal">
 
         <TextView
@@ -45,5 +76,7 @@
             android:textSize="@dimen/product_text_size" />
 
     </LinearLayout>
+    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

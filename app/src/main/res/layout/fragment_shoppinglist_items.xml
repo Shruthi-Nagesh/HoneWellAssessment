@@ -17,7 +17,7 @@
         android:id="@+id/cartImage"
         android:layout_width="@dimen/imageview_size"
         android:layout_height="@dimen/imageview_size"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/cart_image"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/recycleview_margin"
         />

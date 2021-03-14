@@ -1,9 +1,10 @@
 package com.example.data
 
+
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Items(val productName: String?, val priceTag: String?,val isOfferAvailable: Boolean, val offer: String?) : Parcelable {
+data class CartItems(val productName: String?, val priceTag: String?,val isOfferAvailable: Boolean, val offer: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -23,12 +24,12 @@ data class Items(val productName: String?, val priceTag: String?,val isOfferAvai
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Items> {
-        override fun createFromParcel(parcel: Parcel): Items {
-            return Items(parcel)
+    companion object CREATOR : Parcelable.Creator<CartItems> {
+        override fun createFromParcel(parcel: Parcel): CartItems {
+            return CartItems(parcel)
         }
 
-        override fun newArray(size: Int): Array<Items?> {
+        override fun newArray(size: Int): Array<CartItems?> {
             return arrayOfNulls(size)
         }
     }
